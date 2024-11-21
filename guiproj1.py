@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 # Correct credentials for login
 CORRECT_USERNAME = "admin"
-CORRECT_PASSWORD = "password123"
+CORRECT_PASSWORD = "password"
 
 # Function to check login credentials
 def check_login():
@@ -53,6 +53,24 @@ root.mainloop()
 master = c.CTk()
 master.title("Main")
 master.geometry('2560x1600')
+
+label1 = c.CTkLabel(master,
+               text = "Calculator",
+               font = ("Helvetica",24))
+label1.place(x=670,y=30)
+
+ctkbutton = c.CTkButton(master, 
+                        text = "Back",
+                        command=lambda: go_back(root))
+ctkbutton.place(x=30,y=30)
+def go_back(root):
+    master.destroy() 
+    root.deiconify()
+
+#back_button = tk.Button(second_window, text="Back", command=lambda: go_back(second_window))
+#back_button.pack(pady=20)
+
+
 
 
 master.mainloop()
