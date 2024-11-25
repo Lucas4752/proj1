@@ -1,8 +1,10 @@
 import sqlite3
 
+#Skaber variable "con"
 con = sqlite3.connect('projektnt.db')
 print ('Database åbnet')
 
+#Sletter tabellerne så vi kan lave dem senere opdaterede
 try:
     con.execute("""DROP TABLE IF EXISTS Process;""")
     con.execute("""DROP TABLE IF EXISTS Machine;""")
@@ -17,6 +19,7 @@ try:
 except Exception as e:
     print('Fejl ved sletning af tabel')
 
+#Laver de nye tabeller
 try:   
     con.execute("""CREATE TABLE Process (
         ProcessID INT PRIMARY KEY,
@@ -70,7 +73,7 @@ try:
 except Exception as e:
     print('Tabellen findes allerede')
 
-
+#Tabellerne og deres indhold
 con.execute("""INSERT INTO Process (ProcessID, ProcessName) VALUES(1, 'FDM');""") 
 con.execute("""INSERT INTO Process (ProcessID, ProcessName) VALUES(2, 'SLA');""")
 con.execute("""INSERT INTO Process (ProcessID, ProcessName) VALUES(3, 'SLS');""")
@@ -144,6 +147,7 @@ con.commit()
 
 inp = ''
 
+#Kommandoer til at blandt andet vise data
 print('')
 print('Kommandoer: ')
 print(' vis - Viser en masse fra Database')

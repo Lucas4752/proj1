@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-# Material cost dictionary
+#Material cost dictionary
 material_cost = {
     'FDM': {
         'Ultimaker 3': {'material': 'abs', 'price_per_kg': 66.66, 'density': 1.1},
@@ -27,18 +27,18 @@ material_cost = {
     }
 }
 
-# Function to update machine dropdown
+#Dropdown menu for process og updater machine dropdown
 def update_machine_dropdown(*args):
     process = process_var.get()
     if process in material_cost:
         machines = list(material_cost[process].keys())
         machine_dropdown['values'] = machines
-        machine_var.set('')  # Clear selection
+        machine_var.set('') 
     else:
         machine_dropdown['values'] = []
         machine_var.set('')
 
-# Function to calculate cost
+#Funktion til pris udregning
 def calculate_cost():
     process = process_var.get()
     machine = machine_var.get()
@@ -46,7 +46,7 @@ def calculate_cost():
         machine_data = material_cost[process][machine]
         input_value = float(input_entry.get())
         
-        # Determine cost based on price unit
+        #Vælger pris baserede på price unit
         if 'price_per_kg' in machine_data:
             cost = input_value * machine_data['price_per_kg']
         elif 'price_per_L' in machine_data:
@@ -59,45 +59,45 @@ def calculate_cost():
             result_label['text'] = "Error: Unsupported price format."
             return
         
-        # Update the result label
+        #Updater resultat label
         result_label['text'] = f"Cost: ${cost:.2f}"
     else:
         result_label['text'] = "Error: Invalid selection or input."
 
-# Create the main window
+#GUI setup for login skærmen
 root = tk.Tk()
-root.title("Material Cost Calculator")
+root.title("NEXTTECH Material Calculator")
 root.geometry("500x400")
 
-# Dropdown for process selection
+#Dropdown menu for process
 process_var = tk.StringVar()
-process_var.trace('w', update_machine_dropdown)  # Update machines when process changes
+process_var.trace('w', update_machine_dropdown)  #Updater machines når process ændres
 process_label = tk.Label(root, text="Select Process:")
 process_label.pack(pady=5)
 process_dropdown = ttk.Combobox(root, textvariable=process_var, state="readonly")
 process_dropdown['values'] = list(material_cost.keys())
 process_dropdown.pack(pady=5)
 
-# Dropdown for machine selection
+#Dropdown menu for machine
 machine_var = tk.StringVar()
 machine_label = tk.Label(root, text="Select Machine:")
 machine_label.pack(pady=5)
 machine_dropdown = ttk.Combobox(root, textvariable=machine_var, state="readonly")
 machine_dropdown.pack(pady=5)
 
-# Input for material quantity
+#Input for material kvantitet
 input_label = tk.Label(root, text="Enter Quantity (kg/L):")
 input_label.pack(pady=5)
 input_entry = tk.Entry(root)
 input_entry.pack(pady=5)
 
-# Button to calculate cost
+#Knap til at beregne
 calculate_button = tk.Button(root, text="Calculate Cost", command=calculate_cost)
 calculate_button.pack(pady=10)
 
-# Label to display the result
+#Label til at vise resultat
 result_label = tk.Label(root, text="Cost: $0.00", font=("Arial", 14))
 result_label.pack(pady=20)
 
-# Run the application
+#Starter GUI loop
 root.mainloop()
